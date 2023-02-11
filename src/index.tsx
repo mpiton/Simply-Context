@@ -60,6 +60,6 @@ export const simplyUseData = (key: string) => {
 };
 
 export default {
-  simplyProvider,
+  SimplyProvider,
   simplyUseData,
 };
