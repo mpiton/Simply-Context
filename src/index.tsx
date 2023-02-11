@@ -43,3 +43,8 @@ export const simplyUseData = (key: string) => {
 
   return [context.state[key], context.setState];
 };
+
+export default {
+  simplyProvider,
+  simplyUseData,
+};
