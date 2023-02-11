@@ -12,10 +12,10 @@ type State = {
 interface SimplyProviderProps extends React.PropsWithChildren<{}> {
     initialState?: State;
 }
-export declare const simplyProvider: React.FC<SimplyProviderProps>;
+export declare const SimplyProvider: React.FC<SimplyProviderProps>;
 export declare const simplyUseData: (key: string) => any[];
 declare const _default: {
-    simplyProvider: React.FC<SimplyProviderProps>;
+    SimplyProvider: React.FC<SimplyProviderProps>;
     simplyUseData: (key: string) => any[];
 };
 export default _default;
