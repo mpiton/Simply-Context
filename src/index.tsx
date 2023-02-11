@@ -35,7 +35,7 @@ const defaultContextProps: SimplyContextProps = {
 const simplyContext = React.createContext(defaultContextProps);
 
 // Create the provider
-export const simplyProvider: React.FC<SimplyProviderProps> = ({
+export const SimplyProvider: React.FC<SimplyProviderProps> = ({
   children,
   initialState = {},
 }) => {
