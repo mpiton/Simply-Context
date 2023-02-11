@@ -1,26 +1,40 @@
 import React from "react";
 
+// This is a hack to allow the use of custom elements in JSX
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      simplyProvider: any;
+    }
+  }
+}
+
+// This is the type of the state object
 type State = {
   [key: string]: any;
 };
 
+// Interface for the context
 interface SimplyContextProps {
   state: State;
   setState: React.Dispatch<React.SetStateAction<State>>;
 }
 
-interface SimplyProviderProps {
+// Interface for the provider
+interface SimplyProviderProps extends React.PropsWithChildren<{}> {
   initialState?: State;
-  children: React.ReactNode;
 }
 
+// Default context props
 const defaultContextProps: SimplyContextProps = {
   state: {},
   setState: () => {},
 };
 
+// Create the context
 const simplyContext = React.createContext(defaultContextProps);
 
+// Create the provider
 export const simplyProvider: React.FC<SimplyProviderProps> = ({
   children,
   initialState = {},
@@ -34,6 +48,7 @@ export const simplyProvider: React.FC<SimplyProviderProps> = ({
   );
 };
 
+// Create the hook
 export const simplyUseData = (key: string) => {
   const context = React.useContext(simplyContext);
 

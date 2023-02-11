@@ -23,3 +23,7 @@ const simplyUseData = (key) => {
     return [context.state[key], context.setState];
 };
 exports.simplyUseData = simplyUseData;
+exports.default = {
+    simplyProvider: exports.simplyProvider,
+    simplyUseData: exports.simplyUseData,
+};

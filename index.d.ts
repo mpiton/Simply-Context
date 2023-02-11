@@ -1,11 +1,21 @@
 import React from "react";
+declare global {
+    namespace JSX {
+        interface IntrinsicElements {
+            simplyProvider: any;
+        }
+    }
+}
 type State = {
     [key: string]: any;
 };
-interface SimplyProviderProps {
+interface SimplyProviderProps extends React.PropsWithChildren<{}> {
     initialState?: State;
-    children: React.ReactNode;
 }
 export declare const simplyProvider: React.FC<SimplyProviderProps>;
 export declare const simplyUseData: (key: string) => any[];
-export {};
+declare const _default: {
+    simplyProvider: React.FC<SimplyProviderProps>;
+    simplyUseData: (key: string) => any[];
+};
+export default _default;
