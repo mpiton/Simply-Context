@@ -1,21 +1,21 @@
 import React from "react";
-import { simplyProvider, simplyUseData } from "simply-context";
+import { SimplyProvider, SimplyUseData } from "simply-context";
 
 const ThemeSwitcher = () => {
-  const [theme, setTheme] = simplyUseData("theme");
+  const [theme, setTheme] = SimplyUseData("theme");
   const handleToggle = () => setTheme(theme === "light" ? "dark" : "light");
 
   return (
     <div>
       <button onClick={handleToggle}>
-        Switch to the theme {theme === "light" ? "sombre" : "clair"}
+        Switch to the theme {theme === "light" ? "dark" : "light"}
       </button>
     </div>
   );
 };
 
 const App = () => (
-  <simplyProvider initialState={{ theme: "light" }}>
+  <SimplyProvider initialState={{ theme: "light" }}>
     <ThemeSwitcher />
-  </simplyProvider>
+  </SimplyProvider>
 );

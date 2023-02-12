@@ -1,8 +1,9 @@
 import React from "react";
-import { simplyProvider, simplyUseData } from "simply-context";
+import { SimplyProvider, SimplyUseData } from "simply-context";
 
+// * Login Component * //
 const Login = () => {
-  const [setUsername] = simplyUseData("username");
+  const [username, setUsername] = SimplyUseData("username");
 
   const usernameRef = React.useRef<HTMLInputElement>(null);
 
@@ -22,15 +23,24 @@ const Login = () => {
   );
 };
 
-const Welcome = () => {
-  const [username] = simplyUseData("username");
+export default Login;
 
+//*  Welcome Component *//
+const Welcome = () => {
+  const [username] = SimplyUseData("username");
   return <h1>Welcome, {username}</h1>;
 };
 
-const App = () => (
-  <simplyProvider>
-    <Login />
-    <Welcome />
-  </simplyProvider>
-);
+export default Welcome;
+
+// * App Component * //
+const App = () => {
+  return (
+    <SimplyProvider initialState={{ username: "" }}>
+      <Login />
+      <Welcome />
+    </SimplyProvider>
+  );
+};
+
+export default App;

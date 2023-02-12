@@ -13,9 +13,9 @@ interface SimplyProviderProps extends React.PropsWithChildren<{}> {
     initialState?: State;
 }
 export declare const SimplyProvider: React.FC<SimplyProviderProps>;
-export declare const simplyUseData: (key: string) => any[];
+export declare const SimplyUseData: (key: string) => any[];
 declare const _default: {
     SimplyProvider: React.FC<SimplyProviderProps>;
-    simplyUseData: (key: string) => any[];
+    SimplyUseData: (key: string) => any[];
 };
 export default _default;

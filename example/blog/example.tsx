@@ -1,8 +1,8 @@
 import React from "react";
-import { simplyProvider, simplyUseData } from "simply-context";
+import { SimplyProvider, SimplyUseData } from "simply-context";
 
 const Blog = () => {
-  const [articles, setArticles] = simplyUseData("articles");
+  const [articles, setArticles] = SimplyUseData("articles");
 
   const handleAddArticle = (title: string) => {
     setArticles([...articles, { title, date: new Date().toDateString() }]);
@@ -26,7 +26,7 @@ const Blog = () => {
 };
 
 const App = () => (
-  <simplyProvider initialState={{ articles: [] }}>
+  <SimplyProvider initialState={{ articles: [] }}>
     <Blog />
-  </simplyProvider>
+  </SimplyProvider>
 );

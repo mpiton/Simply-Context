@@ -1,6 +1,5 @@
 import React from "react";
 
-// This is a hack to allow the use of custom elements in JSX
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -9,57 +8,81 @@ declare global {
   }
 }
 
-// This is the type of the state object
 type State = {
   [key: string]: any;
 };
 
-// Interface for the context
 interface SimplyContextProps {
   state: State;
   setState: React.Dispatch<React.SetStateAction<State>>;
 }
 
-// Interface for the provider
 interface SimplyProviderProps extends React.PropsWithChildren<{}> {
   initialState?: State;
 }
 
-// Default context props
 const defaultContextProps: SimplyContextProps = {
   state: {},
   setState: () => {},
 };
 
-// Create the context
-const simplyContext = React.createContext(defaultContextProps);
+const SimplyContext = React.createContext(defaultContextProps);
 
-// Create the provider
 export const SimplyProvider: React.FC<SimplyProviderProps> = ({
   children,
   initialState = {},
 }) => {
+  if (typeof initialState !== "object") {
+    throw new Error("The initial state must be an object");
+  }
+
   const [state, setState] = React.useState<State>(initialState);
 
+  const memoizedValue = React.useMemo(
+    () => ({
+      state,
+      setState: (updatedState: State) => {
+        if (typeof updatedState !== "object") {
+          throw new Error("The updated state must be an object");
+        }
+        setState((prevState) => ({ ...prevState, ...updatedState }));
+      },
+    }),
+    [state]
+  );
+
   return (
-    <simplyContext.Provider value={{ state, setState }}>
+    <SimplyContext.Provider value={memoizedValue}>
       {children}
-    </simplyContext.Provider>
+    </SimplyContext.Provider>
   );
 };
 
-// Create the hook
-export const simplyUseData = (key: string) => {
-  const context = React.useContext(simplyContext);
+export const SimplyUseData = (key: string) => {
+  const context = React.useContext(SimplyContext);
 
   if (!context) {
     throw new Error(`useData must be used within a Provider`);
   }
+  if (typeof context.state !== "object") {
+    throw new Error(
+      `The state must be an object, but got ${typeof context.state}`
+    );
+  }
 
-  return [context.state[key], context.setState];
+  const [value, setValue] = React.useState(context.state[key]);
+
+  React.useEffect(() => {
+    setValue(context.state[key]);
+  }, [context.state, key]);
+
+  return [
+    value,
+    (updatedValue: any) => context.setState({ [key]: updatedValue }),
+  ];
 };
 
 export default {
   SimplyProvider,
-  simplyUseData,
+  SimplyUseData,
 };
