@@ -7,6 +7,10 @@
     "build": "npx tsc --jsx react",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mpiton/Simply-Context.git"
+  },
   "keywords": [
     "context",
     "api",
