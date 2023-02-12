@@ -16,41 +16,44 @@ npm install simply-context
 
 ## Usage
 
-First, import the `simplyProvider` component and the `simplyUseData` hook from the `simply-context` package:
+First, import the `SimplyProvider` component and the `SimplyUseData` hook from the `simply-context` package:
 
 ```javascript
-import { simplyProvider, simplyUseData } from 'simply-context';
+import { SimplyProvider, SimplyUseData } from "simply-context";
 ```
 
 Then, wrap your root component with the simplyProvider component and pass in any initial state you would like to use:
 
 ```javascript
-
 const App = () => {
   return (
-    <simplyProvider initialState={{ username: '' }}>
+    <SimplyProvider initialState={{ username: "" }}>
       {/* your app components here */}
-    </simplyProvider>
+    </SimplyProvider>
   );
 };
 ```
 
-Next, you can use the simplyUseData hook anywhere in your app to access and modify the context data:
+Next, you can use the SimplyUseData hook anywhere in your app to access and modify the context data:
 
 ```javascript
-
 const LoginForm = () => {
-  const [username, setUsername] = useData('username');
+  const [username, setUsername] = SimplyUseData("username");
+
+  const usernameRef = React.useRef <HTMLInputElement>(null);
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // do something with the username
-    setUsername(event.currentTarget.username.value);
+    if (usernameRef.current) {
+      let name = usernameRef.current.value;
+      setUsername(name);
+    }
   };
 
   return (
     <form onSubmit={handleLogin}>
-      <input name="username" type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
+      <input name="username" type="text" value={username} ref={usernameRef} />
       <button type="submit">Login</button>
     </form>
   );
@@ -59,17 +62,17 @@ const LoginForm = () => {
 
 ## API
 
-### simplyProvider
+### SimplyProvider
 
-The `simplyProvider` component is a higher-order component that provides the context data and setter functions to its children components.
+The `SimplyProvider` component is a higher-order component that provides the context data and setter functions to its children components.
 
 #### Props
 
 - `initialState` (optional): an object that represents the initial state of the context data.
 
-### simplyUseData
+### SimplyUseData
 
-The simplyUseData hook is a hook that allows you to access and modify the context data from anywhere in your app.
+The SimplyUseData hook is a hook that allows you to access and modify the context data from anywhere in your app.
 
 #### Arguments
 
